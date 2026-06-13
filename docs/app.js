@@ -3,7 +3,10 @@
 
 // 部署后，把这里改成你的 Render 后端地址，例如：
 // const API_BASE = "https://research-focus-clock-api.onrender.com";
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE =
+  location.hostname === "127.0.0.1" || location.hostname === "localhost"
+    ? "http://127.0.0.1:8000"
+    : "https://research-focus-clock-api.onrender.com";
 
 const CIRCUMFERENCE = 339.29;
 
