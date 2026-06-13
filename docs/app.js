@@ -283,7 +283,7 @@ function playDoneSound() {
     const audioContext = new AudioContext();
 
     // 音量大小，0.1 比较柔和，0.3 比较明显，建议不要超过 0.5
-    const volume = 0.7;
+    const volume = 0.9;
 
     // 一段简单明显的完成提示旋律
     const melody = [
