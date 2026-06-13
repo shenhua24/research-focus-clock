@@ -94,8 +94,19 @@ class CheckInCreate(BaseModel):
     focus_seconds: int = Field(..., ge=1, le=240 * 60)
     checkin_date: date
 
+    # 新增字段：
+    # 前端传入用户本地完成时间，例如：2026-06-13T22:08:30
+    # 这样就不会再使用 Render 服务器时间。
+    completed_at: datetime | None = None
+
 
 def to_date_string(value):
+    if hasattr(value, "isoformat"):
+        return value.isoformat()
+    return str(value)
+
+
+def to_datetime_string(value):
     if hasattr(value, "isoformat"):
         return value.isoformat()
     return str(value)
@@ -185,7 +196,10 @@ def health():
 
 @app.post("/api/checkins")
 def create_checkin(payload: CheckInCreate):
-    now = datetime.now()
+    # 关键修改：
+    # 优先使用前端传来的本地完成时间；
+    # 如果前端没有传 completed_at，才使用服务器当前时间。
+    now = payload.completed_at or datetime.now()
 
     with get_conn() as conn:
         with conn.cursor() as cur:
@@ -269,9 +283,7 @@ def get_day_records(
                 "focus_minutes": row["focus_minutes"],
                 "focus_seconds": row["focus_seconds"],
                 "checkin_date": to_date_string(row["checkin_date"]),
-                "created_at": row["created_at"].isoformat()
-                if hasattr(row["created_at"], "isoformat")
-                else str(row["created_at"]),
+                "created_at": to_datetime_string(row["created_at"]),
             }
         )
 
@@ -323,9 +335,7 @@ def get_records(
                 "focus_minutes": row["focus_minutes"],
                 "focus_seconds": row["focus_seconds"],
                 "checkin_date": to_date_string(row["checkin_date"]),
-                "created_at": row["created_at"].isoformat()
-                if hasattr(row["created_at"], "isoformat")
-                else str(row["created_at"]),
+                "created_at": to_datetime_string(row["created_at"]),
             }
         )
 

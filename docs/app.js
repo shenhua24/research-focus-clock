@@ -101,6 +101,11 @@ function getTodayString() {
   const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
   return local.toISOString().slice(0, 10);
 }
+function getLocalDateTimeString() {
+  const now = new Date();
+  const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 19);
+}
 
 function getMinutesValue() {
   const value = Number(focusMinutesInput.value);
@@ -385,6 +390,7 @@ async function finishFocus() {
         focus_minutes: focusMinutes,
         focus_seconds: state.totalSeconds,
         checkin_date: getTodayString(),
+        completed_at: getLocalDateTimeString(),
       }),
     });
 
