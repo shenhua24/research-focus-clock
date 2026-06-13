@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>科研专注时钟</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="page-bg">
+      <div class="blob blob-a"></div>
+      <div class="blob blob-b"></div>
+      <div class="blob blob-c"></div>
+
+      <main class="app">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">Research Focus Clock</p>
+            <h1>科研专注时钟</h1>
+            <p class="subtitle">把今天的一点点专注，变成连续打卡的证据。</p>
+          </div>
+
+          <div class="mascot">
+            <div class="cat-ear left"></div>
+            <div class="cat-ear right"></div>
+            <div class="cat-face">
+              <span>•ᴗ•</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card timer-card">
+          <div class="form-row">
+            <label>
+              专注事件
+              <input
+                id="eventName"
+                type="text"
+                value="阅读论文"
+                maxlength="50"
+              />
+            </label>
+
+            <label>
+              专注时间 / 分钟
+              <input
+                id="focusMinutes"
+                type="number"
+                value="25"
+                min="1"
+                max="240"
+              />
+            </label>
+          </div>
+
+          <div class="timer-wrap">
+            <svg class="timer-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+              <circle
+                id="progressRing"
+                class="ring-progress"
+                cx="60"
+                cy="60"
+                r="54"
+              ></circle>
+            </svg>
+
+            <div class="timer-center">
+              <div id="timeText" class="time">25:00</div>
+              <div id="statusText" class="status">准备开始</div>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button id="startBtn" class="primary">开始专注</button>
+            <button id="pauseBtn">暂停</button>
+            <button id="resetBtn">重置</button>
+          </div>
+
+          <p id="message" class="message"></p>
+        </section>
+
+        <section class="stats-grid">
+          <div class="stat-card">
+            <span>今日状态</span>
+            <strong id="todayStatus">未打卡</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>连续打卡</span>
+            <strong><b id="streak">0</b> 天</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>总打卡天数</span>
+            <strong><b id="totalDays">0</b> 天</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>总专注时间</span>
+            <strong><b id="totalMinutes">0</b> 分钟</strong>
+          </div>
+        </section>
+
+        <section class="card day-card">
+          <div class="section-title">
+            <h2>每日打卡明细</h2>
+            <span>Daily Report ✦</span>
+          </div>
+
+          <div class="date-query">
+            <label>
+              选择日期
+              <input id="recordDate" type="date" />
+            </label>
+
+            <button id="queryDateBtn" class="small-primary">查看当天</button>
+          </div>
+
+          <div id="daySummary" class="day-summary">今天还没有打卡记录。</div>
+
+          <div id="dayRecordList" class="day-record-list"></div>
+        </section>
+        <section class="card">
+          <div class="section-title">
+            <h2>最近打卡日期</h2>
+            <span>Keep going ✦</span>
+          </div>
+
+          <div id="dateList" class="date-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
